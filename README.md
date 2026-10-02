@@ -58,6 +58,19 @@ lib/
 - **Copy lives apart from scheduling.** `plan-view.ts` turns a plan into the text on screen, so the wording can change without touching the engine.
 - **Dates are relative.** Target-date options, day counts and the "generated" stamp are worked out from today's date in Abu Dhabi, not hard-coded.
 
+## Provider logos
+
+Logos in the directory tabs live in `public/logos/` as 192×192 PNGs. They're mapped by provider name in `lib/provider-logos.json`, which also records the URL each file came from. To refresh them, or to add a logo for a new provider, run:
+
+```bash
+node scripts/fetch-logos.mjs              # every provider
+node scripts/fetch-logos.mjs adgm kezad   # only these slugs
+```
+
+The script takes each logo from the provider's own website, trying the SVG icon, then web-app manifest icons, then the apple-touch-icon. Where that picks the wrong image, a URL is pinned in `SOURCES` instead. Logos that are white on a transparent background are flagged `onDark` and shown on a dark tile. A provider without a logo shows its initials. A test fails if any provider in `lib/catalogue.ts` has no logo file.
+
+Logos are the trademarks of their owners and are shown only to identify each provider.
+
 ## Data status
 
 All durations, fees and package values are **estimates pending verification**. They are marked `TODO(verify)` and always shown as ranges. Housing listings and HR package values are **sample data**. Providers in the directories are real organisations, listed for reference only: there are no partnerships, they are not ranked and no prices are shown. Primary sources are TAMM, ADDED, ADGM, ICP, MOHRE and ADAFSA.

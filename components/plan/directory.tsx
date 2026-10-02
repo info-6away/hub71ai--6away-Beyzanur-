@@ -1,4 +1,5 @@
 import type { Directory } from "@/lib/catalogue";
+import { ProviderLogo } from "./provider-logo";
 import { SheetHeading } from "./sheet-parts";
 
 export function TaskContext({ task, why }: { task: string; why: string }) {
@@ -19,7 +20,13 @@ export function DirectoryView({ directory: d }: { directory: Directory }) {
       {/* Small screens: stacked list */}
       <ul className="flex flex-col border-t border-ink md:hidden">
         {d.providers.map((p) => (
-          <li key={p.name} className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1.5 border-b border-rule px-0.5 py-3.5">
+          <li
+            key={p.name}
+            className="grid grid-cols-[48px_minmax(0,1fr)_auto] items-start gap-x-3 gap-y-1.5 border-b border-rule px-0.5 py-3.5"
+          >
+            <span className="row-span-2">
+              <ProviderLogo name={p.name} size="sm" />
+            </span>
             <span className="text-base font-medium">{p.name}</span>
             <span className="text-right font-mono text-[15px] font-medium">{p.website}</span>
             <span className="font-mono text-[11px] tracking-[.06em] text-ink-body">
@@ -32,17 +39,21 @@ export function DirectoryView({ directory: d }: { directory: Directory }) {
 
       {/* Wider screens: table */}
       <div className="hidden overflow-x-auto md:block">
-        <table className="w-full min-w-[720px] table-fixed border-t border-ink">
+        <table className="w-full min-w-[860px] table-fixed border-t border-ink">
           <colgroup>
-            <col className="w-[14%]" />
-            <col className="w-[19%]" />
-            <col className="w-[16%]" />
-            <col className="w-[30%]" />
+            <col className="w-[88px]" />
             <col className="w-[13%]" />
+            <col className="w-[18%]" />
+            <col className="w-[15%]" />
+            <col className="w-[29%]" />
+            <col className="w-[12%]" />
             <col className="w-[110px]" />
           </colgroup>
           <thead>
             <tr className="border-b border-ink font-mono text-[10px] tracking-[.14em] whitespace-nowrap text-mute">
+              <th className="px-2 py-2.5">
+                <span className="sr-only">Logo</span>
+              </th>
               <th className="px-2 py-2.5 text-left font-normal">FOR</th>
               <th className="px-2 py-2.5 text-left font-normal">PROVIDER</th>
               <th className="px-2 py-2.5 text-left font-normal">TYPE</th>
@@ -56,6 +67,9 @@ export function DirectoryView({ directory: d }: { directory: Directory }) {
           <tbody>
             {d.providers.map((p) => (
               <tr key={p.name} className="border-b border-rule hover:bg-paper-sunk">
+                <td className="py-3 pr-2 pl-1.5">
+                  <ProviderLogo name={p.name} />
+                </td>
                 <td className="px-2 py-4 font-mono text-[11px]">{p.forStep}</td>
                 <td className="px-2 py-4 text-[15px] font-medium">{p.name}</td>
                 <td className="px-2 py-4 text-sm">{p.type}</td>
@@ -71,8 +85,9 @@ export function DirectoryView({ directory: d }: { directory: Directory }) {
       </div>
 
       <p className="max-w-[90ch] font-mono text-[10.5px] leading-relaxed tracking-[.1em] text-mute">
-        LISTED FOR REFERENCE ONLY. WUSOOL HAS NO PARTNERSHIP WITH ANY PROVIDER. PRICES ARE NOT SHOWN — CHECK DIRECTLY
-        WITH EACH PROVIDER. DETAILS · TODO(verify)
+        LISTED FOR REFERENCE ONLY. WUSOOL HAS NO PARTNERSHIP WITH ANY PROVIDER. LOGOS ARE THE TRADEMARKS OF THEIR
+        OWNERS AND ONLY IDENTIFY EACH PROVIDER. PRICES ARE NOT SHOWN — CHECK DIRECTLY WITH EACH PROVIDER. DETAILS ·
+        TODO(verify)
       </p>
     </div>
   );

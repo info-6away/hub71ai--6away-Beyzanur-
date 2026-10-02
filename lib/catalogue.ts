@@ -1,6 +1,7 @@
 // Reference directories shown on the plan's category tabs. Real organisations,
 // listed for reference only: no partnerships, not ranked, no prices.
 
+import logoManifest from "./provider-logos.json";
 import { answerLabel, type Answers } from "./questions";
 import type { Plan, TaskId } from "./plan";
 
@@ -12,6 +13,20 @@ export interface Provider {
   why: string;
   website: string;
 }
+
+export interface ProviderLogo {
+  /** Path under public/, e.g. "/logos/adgm.png". */
+  src: string;
+  /** Reversed (light) logo that needs a dark tile. */
+  onDark?: boolean;
+  /** Where the file was downloaded from (see scripts/fetch-logos.mjs). */
+  source: string;
+}
+
+/** Logos keyed by provider name; regenerate with `node scripts/fetch-logos.mjs`. */
+const LOGOS: Record<string, ProviderLogo> = logoManifest;
+
+export const providerLogo = (name: string): ProviderLogo | null => LOGOS[name] ?? null;
 
 const p = (forStep: string, name: string, type: string, why: string, website = "—"): Provider => ({
   forStep, name, type, why, website,
@@ -82,7 +97,7 @@ export const PROVIDERS = {
     p("B10 · MOBILE & INTERNET", "du", "Telecom", "Mobile and home fibre; needs your Emirates ID.", "du.ae"),
     p("B10 · MOBILE", "Virgin Mobile UAE", "Mobile", "App-based mobile plans.", "virginmobile.ae"),
     p("B10 · DRIVING", "Abu Dhabi Police (via TAMM)", "Driving licence conversion", "Some licences convert directly; others need driving lessons.", "tamm.abudhabi"),
-    p("B10 · TRANSPORT", "ITC — Darb & Hafilat", "Road tolls & bus card", "Register your car for Darb tolls; Hafilat for public buses.", "itc.gov.ae"),
+    p("B10 · TRANSPORT", "Abu Dhabi Mobility — Darb & Hafilat", "Road tolls & bus card · formerly ITC", "Register your car for Darb tolls; Hafilat for public buses.", "admobility.gov.ae"),
   ],
 } satisfies Record<string, Provider[]>;
 

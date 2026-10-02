@@ -33,7 +33,7 @@ export function SheetHeading({ title, badge }: { title: string; badge?: string }
         {title}
       </h1>
       {badge && (
-        <span className="eyebrow flex-none border border-uae-red px-2 py-1 whitespace-nowrap text-uae-red">{badge}</span>
+        <span className="eyebrow border border-uae-red px-2 py-1 text-uae-red md:flex-none md:whitespace-nowrap">{badge}</span>
       )}
     </div>
   );
