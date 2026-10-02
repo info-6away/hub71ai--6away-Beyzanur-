@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* Paper, ink and the UAE flag's red and green. Light only, by design. */
+@theme static {
+  --color-paper: #f4f1ea;
+  --color-paper-raised: #faf8f3;
+  --color-paper-sunk: #eae5da;
+  --color-paper-deep: #e2dccf;
+  --color-ink: #1b1b1b;
+  --color-ink-soft: #3a3630;
+  --color-ink-body: #4a453d;
+  --color-mute: #5e584c;
+  --color-dim: #6e685c;
+  --color-faint: #8c8576;
+  --color-rule: #c8c2b4;
+  --color-uae-red: #c8102e;
+  --color-uae-green: #00732f;
+  --color-green-soft: #7fa88e;
+
+  --ease-drawn: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-draw: draw 600ms var(--ease-drawn) backwards;
+}
+
+/* Font variables are set on <html> by next/font in app/layout.tsx. */
+@theme inline {
+  --font-sans: var(--font-plex-sans), sans-serif;
+  --font-condensed: var(--font-plex-condensed), sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
+  --font-arabic: var(--font-plex-arabic), sans-serif;
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--len);
+  }
+}
+
+@layer base {
+  html,
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-uae-red);
+    outline-offset: 2px;
+  }
+}
+
+/* Mono caption used for labels, counters and metadata. */
+@utility eyebrow {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+/* Condensed uppercase headline. */
+@utility display {
+  font-family: var(--font-plex-condensed), sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Rubber-stamp marker, e.g. SAMPLE DATA. */
+@utility stamp {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--color-ink);
+  padding: 2px 6px;
+  rotate: -2deg;
+  white-space: nowrap;
+}
+
+/* Small bordered metadata tag, e.g. estimates and sources. */
+@utility chip {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--color-rule);
+  padding: 3px 6px;
+  color: var(--color-mute);
+}
+
+@utility gutter {
+  padding-inline: clamp(20px, 4vw, 48px);
+}
+
+/* A full-width plan sheet with the standard page padding. */
+@utility sheet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-inline: auto;
+  padding: clamp(28px, 5vh, 56px) clamp(20px, 4vw, 48px) 64px;
+}
